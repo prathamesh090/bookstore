@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Bookstore - Romance</title>
+    <link rel="stylesheet" href="../css/styles.css"> <!-- Updated path to CSS -->
+    <style>
+        /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 30%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <style>
+        /* Green button styles for Login and Sign Up */
+        .nav-button-green {
+            background-color: #007bff; /* Green color */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .nav-button-green:hover {
+            background-color: #e74c3c; /* Darker green on hover */
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Bookstore</div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search books...">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="categories.html">Categories</a></li>
+                <li><a href="newarrivals.html">New Arrivals</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="shopnow.html">Shop Now</a></li>
+                <li><button class="nav-button-green" onclick="openModal('loginModal')">Login</button></li>
+                <li><button class="nav-button-green" onclick="openModal('signupModal')">Sign Up</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="book-section">
+        <h2>Romance</h2>
+        <div class="book-grid">
+            <div class="book-item">
+                <img src="../images/ROM4.jpg" alt="Wild in Love"> <!-- Updated path to images -->
+                <h3>Wild in Love</h3>
+                <div class="rating">★★★★★</div>
+                <p class="price">₹270</p> <!-- Price matched from shopnow.html -->
+                <button onclick="addToCart('book1', 'Wild in Love', '../images/ROM4.jpg', '★★★★★', 270)">Add to Cart</button>
+            </div>
+            <div class="book-item">
+                <img src="../images/ROM5.jpg" alt="Goodbye Kiss"> <!-- Updated path to images -->
+                <h3>Goodbye Kiss</h3>
+                <div class="rating">★★★★☆</div>
+                <p class="price">₹190</p> <!-- Price matched from shopnow.html -->
+                <button onclick="addToCart('book2', 'Goodbye Kiss', '../images/ROM5.jpg', '★★★★☆', 190)">Add to Cart</button>
+            </div>
+            <div class="book-item">
+                <img src="../images/ROM6.png" alt="Love More Than Ever"> <!-- Updated path to images -->
+                <h3>Love More Than Ever</h3>
+                <div class="rating">★★★★☆</div>
+                <p class="price">₹210</p> <!-- Price matched from shopnow.html -->
+                <button onclick="addToCart('book3', 'Love More Than Ever', '../images/ROM6.png', '★★★★☆', 210)">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2>Login</h2>
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="login-email">Email:</label>
+                    <input type="email" id="login-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password:</label>
+                    <input type="password" id="login-password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('signupModal')">&times;</span>
+            <h2>Sign Up</h2>
+            <form onsubmit="handleSignUp(event)">
+                <div class="form-group">
+                    <label for="signup-name">Name:</label>
+                    <input type="text" id="signup-name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email:</label>
+                    <input type="email" id="signup-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password:</label>
+                    <input type="password" id="signup-password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Sign Up</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <footer>
+        <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+        </ul>
+        <p>&copy; 2024 Online Bookstore</p>
+    </footer>
+
+    <script src="../js/cart.js"></script>
+    <script>
+        // Open a modal
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        // Close a modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Handle login form submission
+        async function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            try {
+                const response = await fetch('http://localhost:3000/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    alert('Login successful!');
+                    closeModal('loginModal');
+                } else {
+                    alert(data.message);
+                }
+            } catch (error) {
+                alert('Error logging in. Please try again.');
+            }
+        }
+
+        // Handle sign-up form submission
+        async function handleSignUp(event) {
+            event.preventDefault();
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+
+            try {
+                const response = await fetch('http://localhost:3000/signup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, password })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    alert('Sign-up successful!');
+                    closeModal('signupModal');
+                } else {
+                    alert(data.message);
+                }
+            } catch (error) {
+                alert('Error signing up. Please try again.');
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Bookstore - Shop Now</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 30%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <style>
+        /* Green button styles for Login and Sign Up */
+        .nav-button-green {
+            background-color: #007bff; /* Green color */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .nav-button-green:hover {
+            background-color: #e74c3c; /* Darker green on hover */
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Bookstore</div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search books...">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="categories.html">Categories</a></li>
+                <li><a href="newarrivals.html">New Arrivals</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="shopnow.html">Shop Now</a></li>
+                <li><button class="nav-button-green" onclick="openModal('loginModal')">Login</button></li>
+                <li><button class="nav-button-green" onclick="openModal('signupModal')">Sign Up</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="book-section">
+        <h2>Books</h2>
+        <div class="book-grid">
+            <div class="book-item">
+                <img src="../images/edu13.jpg" alt="Book 1">
+                <h3>The Psychology of Money</h3>
+                <div class="rating">★★★★★</div>
+                <p class="price">₹250</p>
+                <button onclick="addToCart('book1', 'The Psychology of Money', 'Author 1', '../images/edu13.jpg', '★★★★★', 250)">Add to Cart</button>
+            </div>
+            <div class="book-item">
+                <img src="../images/edu14.webp" alt="Book 2">
+                <h3>Rich Dad Poor Dad</h3>
+                <div class="rating">★★★★☆</div>
+                <p class="price">₹180</p>
+                <button onclick="addToCart('book2', 'Rich Dad Poor Dad', 'Author 2', '../images/edu14.webp', '★★★★☆', 180)">Add to Cart</button>
+            </div>
+            <div class="book-item">
+                <img src="../images/scifi1.png" alt="Book 5">
+                <h3>The Outer Space</h3>
+                <div class="rating">★★★★★</div>
+                <p class="price">₹300</p>
+                <button onclick="addToCart('book5', 'The Outer Space', 'Author 5', '../images/scifi1.png', '★★★★★', 300)">Add to Cart</button>
+            </div>
+            <div class="book-item">
+                <img src="../images/scifi2.jpeg" alt="Book 6">
+                <h3>Three Worlds to Conquer</h3>
+                <div class="rating">★★★★☆</div>
+                <p class="price">₹220</p>
+                <button onclick="addToCart('book6', 'Three Worlds to Conquer', 'Author 6', '../images/scifi2.jpeg', '★★★★☆', 220)">Add to Cart</button>
+            </div>
+            <div class="book-item">
+                <img src="../images/scifi3.jpeg" alt="Book 7">
+                <h3>The Blighted Star</h3>
+                <div class="rating">★★★★☆</div>
+                <p class="price">₹150</p>
+                <button onclick="addToCart('book7', 'The Blighted Star', 'Author 7', '../images/scifi3.jpeg', '★★★★☆', 150)">Add to Cart</button>
+            </div>
+            <div class="book-item">
+                <img src="../images/ROM4.jpg" alt="Book 1">
+                <h3>Wild in Love</h3>
+                <div class="rating">★★★★★</div>
+                <p class="price">₹270</p>
+                <button onclick="addToCart('book1', 'Wild in Love', 'Author 1', '../images/ROM4.jpg', '★★★★★', 270)">Add to Cart</button>
+            </div>
+            <div class="book-item">
+                <img src="../images/ROM5.jpg" alt="Book 2">
+                <h3>Goodbye Kiss</h3>
+                <div class="rating">★★★★☆</div>
+                <p class="price">₹190</p>
+                <button onclick="addToCart('book2', 'Goodbye Kiss', 'Author 2', '../images/ROM5.jpg', '★★★★☆', 190)">Add to Cart</button>
+            </div>
+            <div class="book-item">
+                <img src="../images/ROM6.png" alt="Book 3">
+                <h3>Love More Than Ever</h3>
+                <div class="rating">★★★★☆</div>
+                <p class="price">₹210</p>
+                <button onclick="addToCart('book3', 'Love More Than Ever', 'Author 3', '../images/ROM6.png', '★★★★☆', 210)">Add to Cart</button>
+            </div>
+            <div class="book-item">
+                <img src="../images/MY10.png" alt="Book 1">
+                <h3>To the Forest</h3>
+                <div class="rating">★★★★★</div>
+                <p class="price">₹300</p>
+                <button onclick="addToCart('book1', 'To the Forest', 'Author 1', '../images/MY10.png', '★★★★★', 300)">Add to Cart</button>
+            </div>
+            <div class="book-item">
+                <img src="../images/MY11.webp" alt="Book 2">
+                <h3>The Dark Side of Winter</h3>
+                <div class="rating">★★★★☆</div>
+                <p class="price">₹250</p>
+                <button onclick="addToCart('book2', 'The Dark Side of Winter', 'Author 2', '../images/MY11.webp', '★★★★☆', 250)">Add to Cart</button>
+            </div>
+            <div class="book-item">
+                <img src="../images/MY12.jpg" alt="Book 3">
+                <h3>Cut the Bone</h3>
+                <div class="rating">★★★★☆</div>
+                <p class="price">₹200</p>
+                <button onclick="addToCart('book3', 'Cut the Bone', 'Author 3', '../images/MY12.jpg', '★★★★☆', 200)">Add to Cart</button>
+            </div>
+            <div class="book-item">
+                <img src="../images/FI8.jpg" alt="Book 2">
+                <h3>The Past is Rising</h3>
+                <div class="rating">★★★★☆</div>
+                <p class="price">₹180</p>
+                <button onclick="addToCart('book2', 'The Past is Rising', 'Author 2', '../images/FI8.jpg', '★★★★☆', 180)">Add to Cart</button>
+            </div>
+            <div class="book-item">
+                <img src="../images/FI9.jpg" alt="Book 3">
+                <h3>Museum of Extraordinary Things</h3>
+                <div class="rating">★★★★☆</div>
+                <p class="price">₹300</p>
+                <button onclick="addToCart('book3', 'Museum of Extraordinary Things', 'Author 3', '../images/FI9.jpg', '★★★★☆', 300)">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2>Login</h2>
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="login-email">Email:</label>
+                    <input type="email" id="login-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password:</label>
+                    <input type="password" id="login-password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('signupModal')">&times;</span>
+            <h2>Sign Up</h2>
+            <form onsubmit="handleSignUp(event)">
+                <div class="form-group">
+                    <label for="signup-name">Name:</label>
+                    <input type="text" id="signup-name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email:</label>
+                    <input type="email" id="signup-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password:</label>
+                    <input type="password" id="signup-password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Sign Up</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <footer>
+        <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+        </ul>
+        <p>&copy; 2024 Online Bookstore</p>
+    </footer>
+
+    <script src="../js/cart.js"></script>
+    <script>
+        // Open a modal
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        // Close a modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Handle login form submission
+        async function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            try {
+                const response = await fetch('http://localhost:3000/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    alert('Login successful!');
+                    localStorage.setItem('userEmail', email); // Store user email in localStorage
+                    closeModal('loginModal');
+                } else {
+                    alert(data.message);
+                }
+            } catch (error) {
+                alert('Error logging in. Please try again.');
+            }
+        }
+
+        // Handle sign-up form submission
+        async function handleSignUp(event) {
+            event.preventDefault();
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+
+            try {
+                const response = await fetch('http://localhost:3000/signup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, password })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    alert('Sign-up successful!');
+                    closeModal('signupModal');
+                } else {
+                    alert(data.message);
+                }
+            } catch (error) {
+                alert('Error signing up. Please try again.');
+            }
+        }
+    </script>
+</body>
+</html>
