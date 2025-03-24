@@ -29,7 +29,7 @@
     <section class="payment-section">
         <h2>Payment Information</h2>
         <h3 id="amount-to-pay">Amount to Pay: ₹0</h3> <!-- Total amount will be updated dynamically -->
-        <form class="payment-form" action="process_payment.html" method="POST" onsubmit="return validatePaymentForm(event)">
+        <form class="payment-form" action="thankyou.html" method="POST" onsubmit="handlePaymentFormSubmission(event)">
             <div class="form-group">
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" required>

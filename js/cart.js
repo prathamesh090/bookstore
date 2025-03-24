@@ -50,7 +50,7 @@ function displayCart() {
         bookItem.innerHTML = `
             <img src="${book.image}" alt="${book.title}" style="width: 100px; height: auto;"> <!-- Ensure image is displayed -->
             <h3>${book.title}</h3>
-            <p>${book.author}</p>
+            
             <div class="rating">${book.rating}</div>
             <p class="price">₹${book.price}</p> <!-- Ensure price is displayed -->
             <button onclick="removeFromCart('${book.id}')">Remove from Cart</button>

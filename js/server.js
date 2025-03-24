@@ -1,22 +1,23 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const admin = require('firebase-admin');
 const cors = require('cors');
 const path = require('path');
+const admin = require('firebase-admin');
 
 // Initialize Firebase Admin SDK
-const serviceAccount = require('./serviceAccountKey.json'); // Path to your service account key file
+const serviceAccount = require('./serviceAccountKey.json');
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: 'https://online-book-store-663d3.firebaseio.com' // Replace with your Firebase project URL
+    databaseURL: 'https://online-book-store-663d3.firebaseio.com' // Firebase database URL
 });
 
-const db = admin.firestore(); // Firestore database instance
+const db = admin.firestore();
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
 // Serve static files
+app.use('/css', express.static(path.join(__dirname, '../css')));
 app.use('/images', express.static(path.join(__dirname, '../images')));
 app.use('/', express.static(path.join(__dirname, '../html')));
 
@@ -72,12 +73,18 @@ app.post('/transaction', async (req, res) => {
     const { email, cart, totalPrice } = req.body;
 
     if (!email || !cart || !totalPrice) {
-        return res.status(400).send({ message: 'All fields are required.' });
+        return res.status(400).send({ message: 'Invalid transaction data.' });
     }
 
     try {
-        const transactionRef = db.collection('transactions').doc();
-        await transactionRef.set({ email, cart, totalPrice, date: new Date() });
+        const transactionRef = db.collection('transactions').doc(); // Create a new transaction document
+        await transactionRef.set({
+            email,
+            cart,
+            totalPrice,
+            date: new Date() // Store the current date and time
+        });
+
         res.status(201).send({ message: 'Transaction recorded successfully!' });
     } catch (error) {
         console.error('Error recording transaction:', error);

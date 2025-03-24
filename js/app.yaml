@@ -2,8 +2,20 @@ runtime: nodejs16
 instance_class: F2
 env: standard
 env_variables:
-  FIRESTORE_PROJECT_ID: "online-book-store-663d3"
+  FIRESTORE_PROJECT_ID: "online-book-store-663d3" # Firebase project ID
 handlers:
+  # Serve static files from the css folder
+  - url: /css
+    static_dir: ../css
+
+  # Serve static files from the images folder
+  - url: /images
+    static_dir: ../images
+
+  # Serve static files from the html folder
+  - url: /
+    static_dir: ../html
+
+  # Route all other requests to the backend
   - url: /.*
     script: auto
-npm start
